@@ -1,13 +1,19 @@
-# UOCIS322 - Project 5 #
+# UOCIS322 - Project 6 #
 Brevet time calculator with AJAX, MongoDB, and a RESTful API!
 
 ## What is in this repository
 
 You have a minimal example of `docker-compose` in `DockerRestAPI`, using which you can create RESTful API-based services (as demonstrated in class). 
 
+## IMPORTANT NOTES
+
+**MAKE SURE TO USE THE SOLUTION `acp_times.py` from Canvas for this project!**
+
+**MAKE SURE TO KEEP YOUR FILES in `brevets`! REMOVE `DockerRestAPI` after you're done!**
+
 ## Getting started 
 
-You will reuse *your* code from Project 4.
+You will reuse *your* code from Project 5.
 
 Recall that you created the following functionalities:
 
