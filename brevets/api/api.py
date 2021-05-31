@@ -22,6 +22,7 @@ def retrieve(val_include="default"):
     result = []
     for i in temp:
         del i['_id']
+        del i['km']
         if val_include == "open":
             del i['close_time']
         if val_include == "closed":
