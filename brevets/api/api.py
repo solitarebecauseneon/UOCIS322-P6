@@ -65,16 +65,16 @@ class ListOpenOnly(Resource):
     def get(self, dtype='json'):
         top = request.args.get('top', default=-1)
         if dtype == 'csv':
-            return csv_form(retrieve(), top)
-        return json_form(retrieve(), top)
+            return csv_form(retrieve('open'), top)
+        return json_form(retrieve('open'), top)
 
 
 class ListCloseOnly(Resource):
     def get(self, dtype):
         top = request.args.get('top', default=-1)
         if dtype == 'csv':
-            return csv_form(retrieve(), top)
-        return json_form(retrieve(), top)
+            return csv_form(retrieve('closed'), top)
+        return json_form(retrieve('closed'), top)
 
 
 # Create routes

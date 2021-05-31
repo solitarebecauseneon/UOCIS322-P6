@@ -4,7 +4,7 @@ import os
 
 app = Flask(__name__)
 
-URL_TRACE = "http://" + os.environ['BACKEND_ADDR'] + os.environ['BACKEND_PORT']
+URL_TRACE = "http://" + os.environ['BACKEND_ADDR'] + ":" + os.environ['BACKEND_PORT']
 
 
 @app.errorhandler(404)
