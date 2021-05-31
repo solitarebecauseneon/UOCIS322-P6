@@ -39,7 +39,7 @@ def listopenonly():
 
 @app.route('/listclose')
 def listcloseonly():
-    json_csv = request.args.get('usr_args')
+    json_csv = request.args.get('json_csv')
     top = request.args.get('top', default=0)
     r = requests.get(URL_TRACE + '/listCloseOnly' + '/' + str(json_csv) + '/' + str(top))
     app.logger.debug("r.text: {}".format(r.text))
