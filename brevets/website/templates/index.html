@@ -69,10 +69,10 @@
                   $.getJSON(end_path, {json_csv: select2}).done(
                      function(data) {
                         var message = document.getElementById("message_output");
-                        var output = data.result;
+                        var output = data.text;
                         console.log("Got a response: ");
-                        console.log(data.result);
-                        message.innerHTML = data.result;
+                        console.log(data.text);
+                        message.innerHTML = data.text;
                      }
                   ).fail(function(err){
                      console.log("Error!");

@@ -22,22 +22,25 @@ def home():
 @app.route('/listevery')
 def listeverything():
     json_csv = request.args.get('json_csv')
-    r = requests.get(URL_TRACE + '/listAll' + '/' + str(json_csv))
-    return jsonify(result=r)
+    json_csv = str(json_csv)
+    r = requests.get(URL_TRACE + '/listAll' + '/' + json_csv)
+    return r.text
 
 
 @app.route('/listopen')
 def listopenonly():
     json_csv = request.args.get('json_csv')
-    r = requests.get(URL_TRACE + '/listOpenOnly' + '/' + str(json_csv))
-    return jsonify(result=r)
+    json_csv = str(json_csv)
+    r = requests.get(URL_TRACE + '/listOpenOnly' + '/' + json_csv)
+    return r.text
 
 
 @app.route('/listclose')
 def listcloseonly():
     json_csv = request.args.get('usr_args')
-    r = requests.get(URL_TRACE + '/listCloseOnly' + '/' + str(json_csv))
-    return jsonify(result=r)
+    json_csv = str(json_csv)
+    r = requests.get(URL_TRACE + '/listCloseOnly' + '/' + json_csv)
+    return r.text
 
 
 if __name__ == '__main__':
