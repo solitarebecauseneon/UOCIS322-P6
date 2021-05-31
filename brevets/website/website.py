@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import requests
 import os
 
@@ -23,21 +23,21 @@ def home():
 def listeverything():
     json_csv = request.args.get('json_csv')
     r = requests.get(URL_TRACE + '/listAll' + '/' + str(json_csv))
-    return r.text
+    return jsonify(result=r)
 
 
 @app.route('/listopen')
 def listopenonly():
     json_csv = request.args.get('json_csv')
     r = requests.get(URL_TRACE + '/listOpenOnly' + '/' + str(json_csv))
-    return r.text
+    return jsonify(result=r)
 
 
 @app.route('/listclose')
 def listcloseonly():
     json_csv = request.args.get('usr_args')
     r = requests.get(URL_TRACE + '/listCloseOnly' + '/' + str(json_csv))
-    return r.text
+    return jsonify(result=r)
 
 
 if __name__ == '__main__':
