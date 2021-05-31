@@ -39,6 +39,7 @@ def csv_form(result, top):
     else:
         for i in range(len(result)):
             data = data + ','.join(result[i].values()) + '\n'
+    data = data.replace("\n", "<br />\n")
     return data
 
 
@@ -50,6 +51,7 @@ def json_form(result, top):
     else:
         for i in range(len(result)):
             data = data + str(result[i]) + '\n'
+    data = data.replace("\n", "<br />\n")
     return data
 
 
