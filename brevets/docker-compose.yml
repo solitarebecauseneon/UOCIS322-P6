@@ -27,7 +27,7 @@ services:
         ports:
             - "5689:5000"
         depends_on:
-            - api
+            - restapi
         environment:
             MONGODB_HOSTNAME: ourdb
             BACKEND_ADDR: api
