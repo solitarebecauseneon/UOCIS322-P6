@@ -35,6 +35,8 @@ def retrieve(val_include="default"):
 def csv_form(result, top):
     data = ','.join(result[0].keys()) + '\n'
     if top > 0:
+        if top > len(result):
+            top = len(result)
         for i in range(top):
             data = data + ','.join(result[i].values()) + '\n'
     else:
@@ -46,6 +48,8 @@ def csv_form(result, top):
 def json_form(result, top):
     data = ''
     if top > 0:
+        if top > len(result):
+            top = len(result)
         for i in range(top):
             data = data + str(result[i]) + '\n'
     else:
@@ -55,24 +59,21 @@ def json_form(result, top):
 
 
 class ListAll(Resource):
-    def get(self, dtype='json'):
-        top = request.args.get('top', default=-1)
+    def get(self, dtype='json', top=-1):
         if dtype == 'csv':
             return csv_form(retrieve(), top)
         return json_form(retrieve(), top)
 
 
 class ListOpenOnly(Resource):
-    def get(self, dtype='json'):
-        top = request.args.get('top', default=-1)
+    def get(self, dtype='json', top=-1):
         if dtype == 'csv':
             return csv_form(retrieve('open'), top)
         return json_form(retrieve('open'), top)
 
 
 class ListCloseOnly(Resource):
-    def get(self, dtype):
-        top = request.args.get('top', default=-1)
+    def get(self, dtype, top=-1):
         if dtype == 'csv':
             return csv_form(retrieve('closed'), top)
         return json_form(retrieve('closed'), top)
@@ -80,9 +81,9 @@ class ListCloseOnly(Resource):
 
 # Create routes
 # Another way, without decorators
-api.add_resource(ListAll, '/listAll/<string:dtype>')
-api.add_resource(ListOpenOnly, '/listOpenOnly/<string:dtype>')
-api.add_resource(ListCloseOnly, '/listCloseOnly/<string:dtype>')
+api.add_resource(ListAll, '/listAll/<string:dtype>/<int:top>')
+api.add_resource(ListOpenOnly, '/listOpenOnly/<string:dtype>/<int:top>')
+api.add_resource(ListCloseOnly, '/listCloseOnly/<string:dtype>/<int:top>')
 
 
 # Run the application

@@ -22,8 +22,8 @@ def home():
 @app.route('/listevery')
 def listeverything():
     json_csv = request.args.get('json_csv')
-    json_csv = str(json_csv)
-    r = requests.get(URL_TRACE + '/listAll' + '/' + json_csv)
+    top = request.args.get('top')
+    r = requests.get(URL_TRACE + '/listAll' + '/' + str(json_csv) + '/' + str(top))
     app.logger.debug("r.text: {}".format(r.text))
     return r.text
 
@@ -31,8 +31,8 @@ def listeverything():
 @app.route('/listopen')
 def listopenonly():
     json_csv = request.args.get('json_csv')
-    json_csv = str(json_csv)
-    r = requests.get(URL_TRACE + '/listOpenOnly' + '/' + json_csv)
+    top = request.args.get('top')
+    r = requests.get(URL_TRACE + '/listAll' + '/' + str(json_csv) + '/' + str(top))
     app.logger.debug("r.text: {}".format(r.text))
     return r.text
 
@@ -40,8 +40,8 @@ def listopenonly():
 @app.route('/listclose')
 def listcloseonly():
     json_csv = request.args.get('usr_args')
-    json_csv = str(json_csv)
-    r = requests.get(URL_TRACE + '/listCloseOnly' + '/' + json_csv)
+    top = request.args.get('top')
+    r = requests.get(URL_TRACE + '/listAll' + '/' + str(json_csv) + '/' + str(top))
     app.logger.debug("r.text: {}".format(r.text))
     return r.text
 

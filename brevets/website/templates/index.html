@@ -41,7 +41,7 @@
          </div>
          <div class="col-md-4">
             <p>Select 'json' or 'csv' display format</p>
-               <select name="open_close_select" id="select2">
+               <select name="json_csv_select" id="select2">
                   <option value="json">json</option>
                   <option value="csv">csv</option>
                </select>
@@ -49,7 +49,16 @@
             <p></p>
          </div>
          <div class="col-md-4">
+            <p>Enter a number 'x' to see the top 'x' results</p>
+               <input type="number" name="top_select" id="select3"
+               min="1" max="21">
+            <p></p>
+            <p></p>
+         </div>
+         <div class="col-md-4">
             <button id="submit">Submit</button>
+         </div>
+         <div class="col-md-12">
             <p id="message_output"> </p>
          </div>
          <script>
@@ -62,14 +71,14 @@
                   var path = "/listevery"
                   var select1 = document.getElementById('select1').value;
                   var select2 = document.getElementById('select2').value;
-                  console.log(select2);
+                  var select3 = document.getElementById('select3').value;
                   if (select1 == "open") {
                      path = "/listopen"
                   } else if (select1 == "close") {
                      path = "/listclose"
                   }
                   var end_path = SCRIPT_ROOT + path
-                  $.getJSON(end_path, {json_csv: select2}).done(
+                  $.getJSON(end_path, {json_csv: select2, top: select3}).done(
                      function(data) {
                         var message = document.getElementById("message_output");
                         console.log("Got a response: ");
