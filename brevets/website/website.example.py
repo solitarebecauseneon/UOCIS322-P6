@@ -1,7 +1,10 @@
 from flask import Flask, render_template
 import requests
+import os
 
 app = Flask(__name__)
+
+URL_TRACE = "http://" + os.environ['BACKEND_ADDR'] + os.environ['BACKEND_PORT']
 
 @app.route('/')
 @app.route('/index')

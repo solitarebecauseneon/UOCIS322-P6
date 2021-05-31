@@ -13,7 +13,7 @@ services:
     ports:
       - 5000:80
     depends_on:
-      - restapi
+      - api
     environment:
-      BACKEND_ADDR: restapi
+      BACKEND_ADDR: api
       BACKEND_PORT: 5000
