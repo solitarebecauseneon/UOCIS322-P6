@@ -1,0 +1,38 @@
+from flask import Flask, render_template, request
+import requests
+import os
+
+app = Flask(__name__)
+
+URL_TRACE = "http://" + os.environ['BACKEND_ADDR'] + os.environ['BACKEND_PORT']
+
+
+@app.route('/')
+@app.route('/index')
+def home():
+    render_template('index.html')
+
+
+@app.route('/listevery')
+def listeverything():
+    json_csv = request.get.args('json_csv')
+    r = requests.get(URL_TRACE + '/listAll' + '/' + str(json_csv))
+    return r.text
+
+
+@app.route('/listopen')
+def listopenonly():
+    json_csv = request.get.args('json_csv')
+    r = requests.get(URL_TRACE + '/listOpenOnly' + '/' + str(json_csv))
+    return r.text
+
+
+@app.route('/listclose')
+def listcloseonly():
+    json_csv = request.get.args('usr_args')
+    r = requests.get(URL_TRACE + '/listCloseOnly' + '/' + str(json_csv))
+    return r.text
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', debug=True)

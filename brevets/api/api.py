@@ -5,6 +5,7 @@ import os
 from flask_restful import Resource, Api
 from pymongo import MongoClient
 
+
 app = Flask(__name__)
 api = Api(app)
 
@@ -12,7 +13,7 @@ client = MongoClient('mongodb://' + os.environ['MONGODB_HOSTNAME'], 27017)
 db = client.brevetdb
 
 
-def retrieve():
+def retrieve(val_include="default"):
     """
     retrieves all data from database
     """
@@ -21,41 +22,59 @@ def retrieve():
     result = []
     for i in temp:
         del i['_id']
+        if val_include == "open":
+            del i['close_time']
+        if val_include == "closed":
+            del i['open_time']
         result.append(i)
     app.logger.debug("MangoDB documents: {}".format(result))
     return result
 
 
-def csv_form(result):
-    return None
+def csv_form(result, top):
+    data = ','.join(result[0].keys()) + '\n'
+    if top > 0:
+        for i in range(top):
+            data = ','.join(result[i].values()) + '\n'
+    else:
+        for i in range(len(result)):
+            data = ','.join(result[i].values()) + '\n'
+    return data
 
 
-def json_form(result):
-    return None
+def json_form(result, top):
+    data = ''
+    if top > 0:
+        for i in range(top):
+            data = data + str(result[i]) + '\n'
+    else:
+        for i in range(len(result)):
+            data = data + str(result[i]) + '\n'
+    return data
 
 
 class ListAll(Resource):
     def get(self, dtype='json'):
-        request.args.get('top', default=-1)
+        top = request.args.get('top', default=-1)
         if dtype == 'csv':
-            return csv_form(retrieve())
-        return json_form(retrieve())
+            return csv_form(retrieve(), top)
+        return json_form(retrieve(), top)
 
 
 class ListOpenOnly(Resource):
     def get(self, dtype='json'):
-        request.args.get('top', default=-1)
+        top = request.args.get('top', default=-1)
         if dtype == 'csv':
-            return csv_form(retrieve())
-        return json_form(retrieve())
+            return csv_form(retrieve(), top)
+        return json_form(retrieve(), top)
 
 
 class ListCloseOnly(Resource):
     def get(self, dtype):
-        request.args.get('top', default=-1)
+        top = request.args.get('top', default=-1)
         if dtype == 'csv':
-            return csv_form(retrieve())
-        return json_form(retrieve())
+            return csv_form(retrieve(), top)
+        return json_form(retrieve(), top)
 
 
 # Create routes

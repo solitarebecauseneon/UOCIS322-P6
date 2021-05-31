@@ -22,11 +22,63 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
          integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
          crossorigin="anonymous"></script>
-      <!-- moment.js is the JavaScript equivalent of arrow.py -->
    </head>
    <!-- Our own stylesheet -->
-   <link rel="stylesheet" href="/static/css/calc.css" />
+   <link rel="stylesheet" href="/static/css/index.css" />
    <body>
+      <div class="container">
+         <h1>Results</h1>
+         <p>Press 'submit' to output results below</p>
+         <div class="col-md-4">
+            <p>Select 'open', 'close', or 'all' to get specific brevet times</p>
+               <select name="open_close_select" id="select1">
+                  <option value="default">all</option>
+                  <option value="open">open</option>
+                  <option value="close">close</option>
+               </select>
+         </div>
+         <div class="col-md-4">
+         <p>Select 'json' or 'csv' display format</p>
+            <select name="open_close_select" id="select2">
+               <option value="json">json</option>
+               <option value="csv">csv</option>
+            </select>
+         </div>
+         <div class="col-md-4">
+            <button id="submit">Submit</button>
+            <p id="message_output"> </p>
+         </div>
+         <script>
+            var SCRIPT_ROOT = {{ request.script_root|tojson|safe }} ;
 
+            $('#submit').click(
+               function(e)
+               {
+                  e.preventDefault();
+                  var path = "/listevery"
+                  var select1 = document.getElementById('select1').value;
+                  var select2 = document.getElementById('select2').value;
+                  if (select1 == "open") {
+                     path = "/listopen"
+                  } else if (select1 == "close") {
+                     path = "/listclose"
+                  }
+                  var end_path = SCRIPT_ROOT + path
+                  $.getJSON(end_path, {json_csv: select2}).done(
+                     function(data) {
+                        var message = document.getElementById("message_output");
+                        var output = data.result;
+                        console.log("Got a response: ");
+                        console.log(data.result);
+                        message.innerHTML = data.result;
+                     }
+                  ).fail(function(err){
+                     console.log("Error!");
+                     console.log(err);
+                  });
+               }
+            )
+         </script>
+      </div>
    </body>
 </html>
