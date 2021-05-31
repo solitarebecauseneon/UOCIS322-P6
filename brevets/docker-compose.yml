@@ -22,7 +22,7 @@ services:
             MONGODB_HOSTNAME: ourdb
 
     website:
-        build: api/
+        build: website/
         command: python -u website.py
         ports:
             - "5689:5000"

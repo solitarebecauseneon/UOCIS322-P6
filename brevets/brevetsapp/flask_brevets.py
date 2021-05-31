@@ -102,7 +102,10 @@ def _calc_times():
 
 #############
 
+app.debug = True
+if app.debug:
+    app.logger.setLevel(logging.DEBUG)
 
 if __name__ == "__main__":
     print("Opening for global access on port {}".format(5000))
-    app.run(port=5000, host="0.0.0.0")
+    app.run(port=CONFIG.PORT, host="0.0.0.0")
