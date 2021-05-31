@@ -14,8 +14,6 @@ services:
     restapi:
         build: api/
         command: python -u api.py
-        ports:
-            - "5688:5000"
         depends_on:
             - ourdb
         environment:
