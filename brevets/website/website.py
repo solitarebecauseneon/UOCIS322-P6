@@ -32,7 +32,7 @@ def listeverything():
 def listopenonly():
     json_csv = request.args.get('json_csv')
     top = request.args.get('top', default=0)
-    r = requests.get(URL_TRACE + '/listAll' + '/' + str(json_csv) + '/' + str(top))
+    r = requests.get(URL_TRACE + '/listOpenOnly' + '/' + str(json_csv) + '/' + str(top))
     app.logger.debug("r.text: {}".format(r.text))
     return r.text
 
@@ -41,7 +41,7 @@ def listopenonly():
 def listcloseonly():
     json_csv = request.args.get('usr_args')
     top = request.args.get('top', default=0)
-    r = requests.get(URL_TRACE + '/listAll' + '/' + str(json_csv) + '/' + str(top))
+    r = requests.get(URL_TRACE + '/listCloseOnly' + '/' + str(json_csv) + '/' + str(top))
     app.logger.debug("r.text: {}".format(r.text))
     return r.text
 
