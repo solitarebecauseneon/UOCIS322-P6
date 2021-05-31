@@ -79,10 +79,9 @@ class ListCloseOnly(Resource):
 
 # Create routes
 # Another way, without decorators
-DEFAULT_URL = "http://" + os.environ['BACKEND_ADDR'] + os.environ['BACKEND_PORT']
-api.add_resource(ListAll, (DEFAULT_URL + '/listAll/<str:dtype>'))
-api.add_resource(ListOpenOnly, (DEFAULT_URL + '/listOpenOnly/<str:dtype>'))
-api.add_resource(ListCloseOnly, (DEFAULT_URL + '/listCloseOnly/<str:dtype>'))
+api.add_resource(ListAll,  '/listAll/<str:dtype>')
+api.add_resource(ListOpenOnly, '/listOpenOnly/<str:dtype>')
+api.add_resource(ListCloseOnly, '/listCloseOnly/<str:dtype>')
 
 
 # Run the application

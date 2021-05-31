@@ -7,10 +7,16 @@ app = Flask(__name__)
 URL_TRACE = "http://" + os.environ['BACKEND_ADDR'] + os.environ['BACKEND_PORT']
 
 
+@app.errorhandler(404)
+def page_not_found(error):
+    app.logger.debug("Page not found")
+    return render_template('404.html'), 404
+
+
 @app.route('/')
 @app.route('/index')
 def home():
-    render_template('index.html')
+    return render_template('index.html')
 
 
 @app.route('/listevery')
